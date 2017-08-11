@@ -6,16 +6,7 @@
             <button class="btn btn-primary" type="submit">Add</button>
         </div>
     </form>
-    <ul class="todo-list">.
-        <li class="todo-item" *ngFor="let item of items" [class.completed]="item.completed">
-            <input type="checkbox" (click)="onCheck(item, $event.target.checked)" [checked]="item.completed"/>
-            <div class="todo-text" *ngIf="!editing || currentItem !== item" (click)="onEdit(item)">
-                {{ item.text }}
-            </div>
-            <div class="todo-edit" *ngIf="editing && currentItem === item">
-                <input required (blur)="exitEdit(item.id)" (keyup.enter)="exitEdit(item.id)" [(value)]="currentItem.text"/>
-            </div>
-            <button class="btn btn-danger" (click)="onDelete(item.id)">✖</button>
-        </li>
+    <ul class="todo-list">
+        <item *ngFor="let item of items" [item]="item" (deleteItem)="onDelete($event)"></item>
     </ul>
 </div>

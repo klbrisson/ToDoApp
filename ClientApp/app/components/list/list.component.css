@@ -17,25 +17,3 @@
     list-style: none;
     padding: 0;
 }
-
-.todo-item {
-    padding: 5px 0;
-}
-
-.todo-item [type="checkbox"] {
-    cursor: pointer;
-    width: 30px;
-}
-
-.todo-text,
-.todo-edit {
-    font-size: 18px;
-    display: inline-block;
-    cursor: pointer;
-    width: 80%;
-}
-
-.completed .todo-text {
-    color: #ccc;
-    text-decoration-line: line-through;
-}

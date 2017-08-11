@@ -5,21 +5,21 @@ using System.Threading;
 using System.Threading.Tasks;
 using ToDoApp;
 
-// The functions in this class use Task.Run() and a dictionary to simulate an asynchronous data request
+// The functions in this class use Task.Run and a dictionary to simulate an asynchronous data request
 public class ToDoRepo : IRepo
 {
-    // Adding for demo purposes
-    private static ToDoItem _testToDoItem = new ToDoItem()
-    {
-        id = Guid.NewGuid(),
-        text = "My first to do"
-    };
+    private ConcurrentDictionary<Guid, ToDoItem> repo = new ConcurrentDictionary<Guid, ToDoItem>();
 
-    private static Dictionary<Guid, ToDoItem> _repo = new Dictionary<Guid, ToDoItem>()
+    public ToDoRepo()
     {
         // Adding for demo purposes
-        { _testToDoItem.id, _testToDoItem }
-    };
+        var item = new ToDoItem()
+        {
+            id = Guid.NewGuid(),
+            text = "My first to do"
+        };
+        repo.TryAdd(item.id, item);
+    }
 
     /// <summary>
     /// Get a to do item
@@ -31,7 +31,7 @@ public class ToDoRepo : IRepo
     {
         ToDoItem item = null;
         await Task.Run(() =>
-            _repo.TryGetValue(id, out item)
+            repo.TryGetValue(id, out item)
         , token);
         return item;
     }
@@ -45,7 +45,7 @@ public class ToDoRepo : IRepo
     {
         IEnumerable<ToDoItem> items = null;
         await Task.Run(() =>
-            items = _repo.Values
+            items = repo.Values
         , token);
         return items;
     }
@@ -58,19 +58,14 @@ public class ToDoRepo : IRepo
     /// <returns></returns>
     public async Task<ToDoItem> AddOrUpdateItem(CancellationToken token, ToDoItem item)
     {
-        if (item.id.Equals(new Guid()) || !_repo.ContainsKey(item.id))
+        if (item.id.Equals(new Guid()))
         {
             item.id = Guid.NewGuid();
-            await Task.Run(() =>
-                _repo.Add(item.id, item)
-            , token);
         }
-        else
-        {
-            await Task.Run(() =>
-                _repo[item.id] = item
-            , token);
-        }
+
+        await Task.Run(() =>
+            repo.AddOrUpdate(item.id, item, (id, old) => item)
+        , token);
         return item;
     }
 
@@ -82,10 +77,9 @@ public class ToDoRepo : IRepo
     public async Task<ToDoItem> DeleteItem(Guid id, CancellationToken token)
     {
         ToDoItem item = null;
-        await Task.Run(() => {
-            _repo.TryGetValue(id, out item);
-            _repo.Remove(id);
-        }, token);
+        await Task.Run(() =>
+            repo.TryRemove(id, out item)
+        , token);
         return item;
     }
 

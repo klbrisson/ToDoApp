@@ -1,0 +1,11 @@
+﻿<li class="todo-item" [class.completed]="item.completed">
+    <input type="checkbox" (click)="onCheck($event.target.checked)" [checked]="item.completed"/>
+    <div class="todo-text" *ngIf="!editing" (click)="beginEdit()">
+        {{ item.text }}
+    </div>
+    <div class="todo-edit" *ngIf="editing">
+        <input #itemText required (blur)="endEdit(itemText.value)" (keyup.enter)="endEdit(itemText.value)" [(value)]="item.text"/>
+    </div>
+    <button class="btn btn-danger" (click)="onDelete()">✖</button>
+</li>
+ 

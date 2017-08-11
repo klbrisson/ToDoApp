@@ -12,10 +12,6 @@ export class ListComponent implements OnInit {
     text: string;
     currentItem: ToDoItem;
 
-    editId: string;
-    editVal: string;
-    editing: boolean;
-
     constructor(private toDoService: ToDoService) { };
     
     ngOnInit() {
@@ -28,23 +24,8 @@ export class ListComponent implements OnInit {
             .then(item => this.items.push(item));
     }
 
-    onDelete(id: string) {
-        this.toDoService.deleteItem(id);
-        this.items = this.items.filter(i => i.id !== id);
+    onDelete(item: ToDoItem) {
+        this.items = this.items.filter(i => i.id !== item.id);
     }
 
-    onCheck(item: ToDoItem, isChecked: boolean) {
-        item.completed = isChecked;
-        this.toDoService.updateItem(item);
-    }
-
-    onEdit(item: ToDoItem) {
-        this.currentItem = item;
-        this.editing = true;
-    }
-
-    exitEdit(id: string) {
-        this.editing = false;
-        this.currentItem = null;
-    }
 }

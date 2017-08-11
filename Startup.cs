@@ -31,7 +31,7 @@ namespace ToDoApp
             // Add framework services.
             services.AddMvc();
             services.AddTransient<IToDoList, ToDoList>();
-            services.AddTransient<IRepo, ToDoRepo>();
+            services.AddSingleton<IRepo, ToDoRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
