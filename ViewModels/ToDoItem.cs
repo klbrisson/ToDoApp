@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace ToDoApp
+namespace ToDoApp.ViewModels
 {
     public class ToDoItem
     {
-        public string text;
-        public bool completed;
-        public Guid id;
+        public string Text { get; set; }
+        public bool Completed { get; set; }
+        public Guid Id { get; set; }
     }
 }

@@ -12,7 +12,7 @@ export class ListComponent implements OnInit {
     text: string;
     currentItem: ToDoItem;
 
-    constructor(private toDoService: ToDoService) { };
+    constructor(private toDoService: ToDoService) { }
     
     ngOnInit() {
         this.toDoService.getItems()

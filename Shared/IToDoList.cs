@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using ToDoApp.ViewModels;
 
-namespace ToDoApp
+namespace ToDoApp.Shared
 {
     public interface IToDoList
     {

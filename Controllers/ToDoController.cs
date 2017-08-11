@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System;
 using Newtonsoft.Json;
+using ToDoApp.Shared;
+using ToDoApp.ViewModels;
 
 namespace ToDoApp.Controllers
 {
@@ -11,9 +13,9 @@ namespace ToDoApp.Controllers
     {
         private readonly IToDoList _toDoList;
 
-        public ToDoController(IToDoList todoBL)
+        public ToDoController(IToDoList toDoList)
         {
-            _toDoList = todoBL;
+            _toDoList = toDoList;
         }
 
         [HttpGet]
@@ -33,7 +35,7 @@ namespace ToDoApp.Controllers
         [HttpPost]
         public async Task<JsonResult> AddItem()
         {
-            using(var reader = new System.IO.StreamReader(Request.Body))
+            using(var reader = new System.IO.StreamReader(Request?.Body))
             {
                 var item = JsonConvert.DeserializeObject<ToDoItem>(await reader.ReadToEndAsync());
                 var token = HttpContext.RequestAborted;
@@ -44,7 +46,7 @@ namespace ToDoApp.Controllers
         [HttpPut]
         public async Task<JsonResult> UpdateItem()
         {
-            using (var reader = new System.IO.StreamReader(Request.Body))
+            using (var reader = new System.IO.StreamReader(Request?.Body))
             {
                 var item = JsonConvert.DeserializeObject<ToDoItem>(await reader.ReadToEndAsync());
                 var token = HttpContext.RequestAborted;
@@ -58,6 +60,5 @@ namespace ToDoApp.Controllers
             var token = HttpContext.RequestAborted;
             return new JsonResult(await _toDoList.DeleteItemAsync(id, token));
         }
-
     }
 }

@@ -12,7 +12,7 @@ export class ItemComponent {
     @Output() deleteItem = new EventEmitter<ToDoItem>();
     editing: boolean;
 
-    constructor(private toDoService: ToDoService) { };
+    constructor(private toDoService: ToDoService) { }
 
     onDelete() {
         this.toDoService.deleteItem(this.item.id);
