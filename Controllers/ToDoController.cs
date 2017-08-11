@@ -20,14 +20,14 @@ namespace ToDoApp.Controllers
         public async Task<JsonResult> GetItems()
         {
             var token = HttpContext.RequestAborted;
-            return new JsonResult(await _toDoList.GetItems(token));
+            return new JsonResult(await _toDoList.GetItemsAsync(token));
         }
 
         [HttpGet("{id}")]
         public async Task<JsonResult> GetItem(Guid id)
         {
             var token = HttpContext.RequestAborted;
-            return new JsonResult(await _toDoList.GetItem(id, token));
+            return new JsonResult(await _toDoList.GetItemAsync(id, token));
         }
 
         [HttpPost]
@@ -37,7 +37,7 @@ namespace ToDoApp.Controllers
             {
                 var item = JsonConvert.DeserializeObject<ToDoItem>(await reader.ReadToEndAsync());
                 var token = HttpContext.RequestAborted;
-                return new JsonResult(await _toDoList.AddItem(item, token));
+                return new JsonResult(await _toDoList.AddItemAsync(item, token));
             }
         }
 
@@ -48,7 +48,7 @@ namespace ToDoApp.Controllers
             {
                 var item = JsonConvert.DeserializeObject<ToDoItem>(await reader.ReadToEndAsync());
                 var token = HttpContext.RequestAborted;
-                return new JsonResult(await _toDoList.UpdateItem(item, token));
+                return new JsonResult(await _toDoList.UpdateItemAsync(item, token));
             }
         }
 
@@ -56,7 +56,7 @@ namespace ToDoApp.Controllers
         public async Task<JsonResult> DeleteItem(Guid id)
         {
             var token = HttpContext.RequestAborted;
-            return new JsonResult(await _toDoList.DeleteItem(id, token));
+            return new JsonResult(await _toDoList.DeleteItemAsync(id, token));
         }
 
     }

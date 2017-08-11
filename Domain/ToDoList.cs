@@ -20,9 +20,9 @@ namespace ToDoApp
         /// <param name="id"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<ToDoItem> GetItem(Guid id, CancellationToken token)
+        public async Task<ToDoItem> GetItemAsync(Guid id, CancellationToken token)
         {
-            return await _repo.GetItem(id, token);
+            return await _repo.GetItemAsync(id, token);
         }
 
         /// <summary>
@@ -30,9 +30,9 @@ namespace ToDoApp
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<ToDoItem>> GetItems(CancellationToken token)
+        public async Task<IEnumerable<ToDoItem>> GetItemsAsync(CancellationToken token)
         {
-            return await _repo.GetItems(token);
+            return await _repo.GetItemsAsync(token);
         }
 
         /// <summary>
@@ -42,9 +42,9 @@ namespace ToDoApp
         /// <param name="item"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<ToDoItem> UpdateItem(ToDoItem item, CancellationToken token)
+        public async Task<ToDoItem> UpdateItemAsync(ToDoItem item, CancellationToken token)
         {
-            return await _repo.AddOrUpdateItem(token, item);
+            return await _repo.AddOrUpdateItemAsync(token, item);
         }
 
         /// <summary>
@@ -53,9 +53,9 @@ namespace ToDoApp
         /// <param name="item"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<ToDoItem> AddItem(ToDoItem item, CancellationToken token)
+        public async Task<ToDoItem> AddItemAsync(ToDoItem item, CancellationToken token)
         {
-            return await _repo.AddOrUpdateItem(token, item);
+            return await _repo.AddOrUpdateItemAsync(token, item);
         }
 
         /// <summary>
@@ -64,9 +64,9 @@ namespace ToDoApp
         /// <param name="id"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<ToDoItem> DeleteItem(Guid id, CancellationToken token)
+        public async Task<ToDoItem> DeleteItemAsync(Guid id, CancellationToken token)
         {
-            return await _repo.DeleteItem(id, token);
+            return await _repo.DeleteItemAsync(id, token);
         }
     }
 }

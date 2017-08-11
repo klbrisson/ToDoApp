@@ -27,7 +27,7 @@ public class ToDoRepo : IRepo
     /// <param name="id"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public async Task<ToDoItem> GetItem(Guid id, CancellationToken token)
+    public async Task<ToDoItem> GetItemAsync(Guid id, CancellationToken token)
     {
         ToDoItem item = null;
         await Task.Run(() =>
@@ -41,7 +41,7 @@ public class ToDoRepo : IRepo
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
-    public async Task<IEnumerable<ToDoItem>> GetItems(CancellationToken token)
+    public async Task<IEnumerable<ToDoItem>> GetItemsAsync(CancellationToken token)
     {
         IEnumerable<ToDoItem> items = null;
         await Task.Run(() =>
@@ -56,7 +56,7 @@ public class ToDoRepo : IRepo
     /// <param name="item"></param>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<ToDoItem> AddOrUpdateItem(CancellationToken token, ToDoItem item)
+    public async Task<ToDoItem> AddOrUpdateItemAsync(CancellationToken token, ToDoItem item)
     {
         if (item.id.Equals(new Guid()))
         {
@@ -74,7 +74,7 @@ public class ToDoRepo : IRepo
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<ToDoItem> DeleteItem(Guid id, CancellationToken token)
+    public async Task<ToDoItem> DeleteItemAsync(Guid id, CancellationToken token)
     {
         ToDoItem item = null;
         await Task.Run(() =>

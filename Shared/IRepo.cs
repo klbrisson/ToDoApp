@@ -7,9 +7,9 @@ namespace ToDoApp
 {
     public interface IRepo
     {
-        Task<IEnumerable<ToDoItem>> GetItems(CancellationToken token);
-        Task<ToDoItem> GetItem(Guid id, CancellationToken token);
-        Task<ToDoItem> AddOrUpdateItem(CancellationToken token, ToDoItem item);
-        Task<ToDoItem> DeleteItem(Guid id, CancellationToken token);
+        Task<IEnumerable<ToDoItem>> GetItemsAsync(CancellationToken token);
+        Task<ToDoItem> GetItemAsync(Guid id, CancellationToken token);
+        Task<ToDoItem> AddOrUpdateItemAsync(CancellationToken token, ToDoItem item);
+        Task<ToDoItem> DeleteItemAsync(Guid id, CancellationToken token);
     }
 }
