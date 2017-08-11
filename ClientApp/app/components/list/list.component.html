@@ -1,0 +1,21 @@
+﻿<div class="container list-container">
+    <h1>To Do List</h1>
+    <form class="new-todo-form" (ngSubmit)="onSubmit(text.value); text.value = '';">
+        <div class="form-group">
+            <input class="form-control" #text id="text" name="text" type="text" placeholder="Enter item" required/>
+            <button class="btn btn-primary" type="submit">Add</button>
+        </div>
+    </form>
+    <ul class="todo-list">.
+        <li class="todo-item" *ngFor="let item of items" [class.completed]="item.completed">
+            <input type="checkbox" (click)="onCheck(item, $event.target.checked)" [checked]="item.completed"/>
+            <div class="todo-text" *ngIf="!editing || currentItem !== item" (click)="onEdit(item)">
+                {{ item.text }}
+            </div>
+            <div class="todo-edit" *ngIf="editing && currentItem === item">
+                <input required (blur)="exitEdit(item.id)" (keyup.enter)="exitEdit(item.id)" [(value)]="currentItem.text"/>
+            </div>
+            <button class="btn btn-danger" (click)="onDelete(item.id)">✖</button>
+        </li>
+    </ul>
+</div>
