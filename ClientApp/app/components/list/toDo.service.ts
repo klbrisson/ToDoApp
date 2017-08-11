@@ -35,8 +35,7 @@ export class ToDoService {
     }
 
     updateItem(item: ToDoItem): void {
-        const url = `${this.URL}/${item.id}`;
-        this.http.put(url, JSON.stringify(item))
+        this.http.put(this.URL, JSON.stringify(item))
             .toPromise()
             .then((resp: Response) => resp.json() as ToDoItem);
     }

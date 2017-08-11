@@ -9,50 +9,54 @@ namespace ToDoApp.Controllers
     [Route("api/[controller]")]
     public class ToDoController : Controller
     {
-        private readonly IToDoList _toDoBL;
+        private readonly IToDoList _toDoList;
 
         public ToDoController(IToDoList todoBL)
         {
-            _toDoBL = todoBL;
+            _toDoList = todoBL;
         }
 
         [HttpGet]
         public async Task<JsonResult> GetItems()
         {
             var token = HttpContext.RequestAborted;
-            return new JsonResult(await _toDoBL.GetItems(token));
+            return new JsonResult(await _toDoList.GetItems(token));
         }
 
         [HttpGet("{id}")]
         public async Task<JsonResult> GetItem(Guid id)
         {
             var token = HttpContext.RequestAborted;
-            return new JsonResult(await _toDoBL.GetItem(id, token));
+            return new JsonResult(await _toDoList.GetItem(id, token));
         }
 
         [HttpPost]
         public async Task<JsonResult> AddItem()
         {
-            String data = new System.IO.StreamReader(HttpContext.Request.Body).ReadToEnd();
-            ToDoItem item = JsonConvert.DeserializeObject<ToDoItem>(data);
-            var token = HttpContext.RequestAborted;
-            return new JsonResult(await _toDoBL.AddItem(item, token));
+            using(var reader = new System.IO.StreamReader(Request.Body))
+            {
+                var item = JsonConvert.DeserializeObject<ToDoItem>(await reader.ReadToEndAsync());
+                var token = HttpContext.RequestAborted;
+                return new JsonResult(await _toDoList.AddItem(item, token));
+            }
         }
 
-        [HttpPut("{id}")]
-        public async Task<JsonResult> UpdateItem(Guid id)
+        [HttpPut]
+        public async Task<JsonResult> UpdateItem()
         {
-            String data = new System.IO.StreamReader(HttpContext.Request.Body).ReadToEnd();
-            ToDoItem item = JsonConvert.DeserializeObject<ToDoItem>(data);
-            var token = HttpContext.RequestAborted;
-            return new JsonResult(await _toDoBL.UpdateItem(item, token));
+            using (var reader = new System.IO.StreamReader(Request.Body))
+            {
+                var item = JsonConvert.DeserializeObject<ToDoItem>(await reader.ReadToEndAsync());
+                var token = HttpContext.RequestAborted;
+                return new JsonResult(await _toDoList.UpdateItem(item, token));
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<JsonResult> DeleteItem(Guid id)
         {
             var token = HttpContext.RequestAborted;
-            return new JsonResult(await _toDoBL.DeleteItem(id, token));
+            return new JsonResult(await _toDoList.DeleteItem(id, token));
         }
 
     }
