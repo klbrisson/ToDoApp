@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { sharedConfig } from './app.module.shared';
-import { ToDoService } from './components/list/toDo.service';
 
 @NgModule({
     bootstrap: sharedConfig.bootstrap,

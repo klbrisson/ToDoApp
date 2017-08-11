@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { ToDoItem } from './toDoItem.model';
 import { ToDoService } from './toDo.service';
 
